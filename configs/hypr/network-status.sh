@@ -1,5 +1,5 @@
 #!/bin/bash
-printf -v ICON_CABLE '\UF1E6'
+printf -v ICON_CABLE '\UF108'
 printf -v ICON_WIFI '\UF1EB'
 printf -v ICON_WARN '\UF071'
 
