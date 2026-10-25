@@ -1,0 +1,166 @@
+#!/bin/bash
+# ============================================================
+# TrunixArch — Instalador de entorno Hyprland + Waybar + Fuzzel
+# ============================================================
+# Pensado para correr sobre una instalación de Arch Linux limpia
+# (con Hyprland ya disponible en los repos). Instala los paquetes
+# necesarios y copia la configuración de ventanas (Hyprland),
+# barra (Waybar), launcher/menús (fuzzel) y wallpaper (hyprpaper).
+#
+# Uso:
+#   chmod +x install.sh
+#   ./install.sh
+# ============================================================
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_SRC="$SCRIPT_DIR/configs"
+ASSETS_SRC="$SCRIPT_DIR/assets"
+
+info()  { echo -e "\e[32m[OK]\e[0m $*"; }
+warn()  { echo -e "\e[33m[AVISO]\e[0m $*"; }
+error() { echo -e "\e[31m[ERROR]\e[0m $*"; }
+
+# ---- Chequeos iniciales ----
+if [[ $EUID -eq 0 ]]; then
+    error "No corras este script como root. Usá tu usuario normal (va a pedir sudo cuando haga falta)."
+    exit 1
+fi
+
+if ! command -v pacman &>/dev/null; then
+    error "Esto está pensado para Arch Linux (o derivadas con pacman). No se encontró pacman."
+    exit 1
+fi
+
+echo "============================================================"
+echo " TrunixArch - Hyprland + Waybar + Fuzzel"
+echo "============================================================"
+echo "Este script va a:"
+echo "  1. Instalar los paquetes necesarios (pacman)."
+echo "  2. Copiar la config de Hyprland, Waybar y fuzzel a ~/.config"
+echo "  3. Copiar un wallpaper de ejemplo a ~/Pictures/Wallpapers"
+echo "  4. Habilitar servicios necesarios (NetworkManager, power-profiles-daemon)"
+echo ""
+read -rp "¿Continuar? [s/N]: " confirm
+[[ "$confirm" =~ ^[sSyY]$ ]] || { echo "Cancelado."; exit 0; }
+
+# ---- 1. Paquetes ----
+PACKAGES=(
+    # Compositor y herramientas base de Hyprland
+    hyprland
+    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-gtk
+    polkit-gnome
+    uwsm
+    mesa
+
+    # Display manager (pantalla de login gráfica)
+    sddm
+
+    # Audio (necesario para wpctl/pavucontrol/playerctl)
+    pipewire
+    pipewire-pulse
+    pipewire-alsa
+    wireplumber
+    playerctl
+
+    # Barra, launcher, wallpaper, notificaciones, lock/idle
+    waybar
+    fuzzel
+    hyprpaper
+    hyprlock
+    hypridle
+    mako
+
+    # Terminal y gestor de archivos
+    foot
+    thunar
+    thunar-volman
+    thunar-archive-plugin
+    gvfs
+
+    # Utilidades del sistema usadas por los scripts de la barra/atajos
+    grim
+    slurp
+    wl-clipboard
+    cliphist
+    fzf
+    pavucontrol
+    power-profiles-daemon
+    brightnessctl
+    gsimplecal
+    networkmanager
+    btop
+
+    # Fuente con íconos (usada en toda la barra y los menús)
+    ttf-jetbrains-mono-nerd
+)
+
+info "Instalando paquetes con pacman (puede tardar unos minutos)..."
+sudo pacman -S --needed --noconfirm "${PACKAGES[@]}"
+
+# ---- 2. Servicios ----
+info "Habilitando servicios del sistema..."
+sudo systemctl enable --now NetworkManager.service 2>/dev/null || warn "No se pudo habilitar NetworkManager (¿ya está activo con otro nombre?)"
+sudo systemctl enable --now power-profiles-daemon.service 2>/dev/null || warn "No se pudo habilitar power-profiles-daemon"
+
+if systemctl is-enabled sddm.service &>/dev/null || systemctl is-enabled gdm.service &>/dev/null || systemctl is-enabled lightdm.service &>/dev/null; then
+    info "Ya hay un display manager habilitado, no toco nada ahí."
+else
+    sudo systemctl enable sddm.service 2>/dev/null && info "SDDM habilitado como display manager." || warn "No se pudo habilitar SDDM."
+fi
+
+# ---- 3. Copiar configuración ----
+info "Copiando configuración a ~/.config ..."
+
+mkdir -p "$HOME/.config/hypr" "$HOME/.config/waybar" "$HOME/.config/fuzzel" "$HOME/.config/foot"
+
+# Hyprland (config + scripts usados por binds y por Waybar)
+cp -f "$CONFIG_SRC/hypr/hyprland.conf" "$HOME/.config/hypr/hyprland.conf"
+cp -f "$CONFIG_SRC/hypr/"*.sh "$HOME/.config/hypr/"
+chmod +x "$HOME/.config/hypr/"*.sh
+
+# hyprpaper.conf: reemplazar el placeholder __HOME__ por la home real del usuario
+sed "s|__HOME__|$HOME|g" "$CONFIG_SRC/hypr/hyprpaper.conf" > "$HOME/.config/hypr/hyprpaper.conf"
+
+# Waybar
+cp -f "$CONFIG_SRC/waybar/config.jsonc" "$HOME/.config/waybar/config.jsonc"
+cp -f "$CONFIG_SRC/waybar/style.css" "$HOME/.config/waybar/style.css"
+
+# fuzzel
+cp -f "$CONFIG_SRC/fuzzel/fuzzel.ini" "$HOME/.config/fuzzel/fuzzel.ini"
+
+# foot (terminal)
+cp -f "$CONFIG_SRC/foot/foot.ini" "$HOME/.config/foot/foot.ini"
+
+info "Configuración copiada."
+
+# ---- 4. Wallpaper de ejemplo ----
+mkdir -p "$HOME/Pictures/Wallpapers"
+if [[ -f "$ASSETS_SRC/wallpaper.png" ]]; then
+    cp -n "$ASSETS_SRC/wallpaper.png" "$HOME/Pictures/Wallpapers/wallhaven-8g8q32_1920x1080.png"
+    info "Wallpaper de ejemplo copiado a ~/Pictures/Wallpapers/"
+else
+    warn "No se encontró el wallpaper de ejemplo en $ASSETS_SRC — vas a necesitar poner una imagen vos mismo y ajustar ~/.config/hypr/hyprpaper.conf"
+fi
+
+# ---- 5. Avisos finales ----
+echo ""
+echo "============================================================"
+info "Instalación completa."
+echo "============================================================"
+warn "IMPORTANTE - revisá/ajustá manualmente antes de entrar a la sesión:"
+echo "  - ~/.config/hypr/hyprland.conf: las líneas 'monitor =' tienen los nombres"
+echo "    de pantalla de la máquina original (eDP-1 / HDMI-A-1). Corré 'hyprctl monitors'"
+echo "    después de entrar a Hyprland y ajustá los nombres si no coinciden."
+echo "  - Elegí la sesión 'Hyprland' en tu display manager (SDDM u otro) al iniciar sesión."
+echo ""
+echo "Atajos principales ya configurados:"
+echo "  SUPER+T        terminal       SUPER+R   launcher (fuzzel)"
+echo "  SUPER+E        explorador     SUPER+Q   cerrar ventana"
+echo "  SUPER+B        cambiar wallpaper (preview en vivo)"
+echo "  SUPER+C        historial de portapapeles"
+echo "  SUPER+N        activar/desactivar notificaciones"
+echo "  SUPER+L        bloquear pantalla"
+echo ""

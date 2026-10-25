@@ -1,0 +1,78 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "spacing": 4,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "margin-bottom": 0,
+    "exclusive": true,
+
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["custom/clock"],
+    "modules-right": ["tray", "custom/mic", "custom/volume", "custom/network", "custom/battery", "custom/power"],
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "active": "●",
+            "default": "○",
+            "empty": "○"
+        },
+        "persistent-workspaces": {
+            "*": 5
+        }
+    },
+
+    "custom/clock": {
+        "exec": "date '+%H:%M  %d/%m'",
+        "interval": 10,
+        "on-click": "~/.config/hypr/calendar-toggle.sh",
+        "tooltip": false
+    },
+
+    "tray": {
+        "icon-size": 20,
+        "spacing": 8
+    },
+
+    "custom/mic": {
+        "exec": "~/.config/hypr/mic-status.sh",
+        "return-type": "json",
+        "interval": 10,
+        "signal": 8,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && pkill -RTMIN+8 waybar"
+    },
+
+    "custom/volume": {
+        "exec": "~/.config/hypr/volume-status.sh",
+        "return-type": "json",
+        "interval": 2,
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+    },
+
+    "custom/network": {
+        "exec": "~/.config/hypr/network-status.sh",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "~/.config/hypr/network-menu.sh"
+    },
+
+    "custom/battery": {
+        "exec": "~/.config/hypr/battery-status.sh",
+        "return-type": "json",
+        "interval": 15,
+        "on-click": "~/.config/hypr/power-profile-menu.sh"
+    },
+
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": false,
+        "on-click": "~/.config/hypr/powermenu.sh"
+    }
+}

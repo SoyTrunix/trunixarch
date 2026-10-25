@@ -1,0 +1,10 @@
+#!/bin/bash
+entries=" Shutdown\n Reboot\n Suspend\n Log out"
+selected=$(echo -e "$entries" | fuzzel --config ~/.config/fuzzel/fuzzel.ini --dmenu --hide-prompt --minimal-lines --lines 4 -w 22)
+
+case "$selected" in
+    *Shutdown*) systemctl poweroff ;;
+    *Reboot*) systemctl reboot ;;
+    *Suspend*) systemctl suspend ;;
+    *"Log out"*) hyprctl dispatch exit ;;
+esac
