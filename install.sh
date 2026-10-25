@@ -45,6 +45,19 @@ echo ""
 read -rp "¿Continuar? [s/N]: " confirm
 [[ "$confirm" =~ ^[sSyY]$ ]] || { echo "Cancelado."; exit 0; }
 
+# ---- Helper para paquetes de AUR (sin depender de paru/yay) ----
+aur_install() {
+    local pkg="$1"
+    if pacman -Qi "$pkg" &>/dev/null; then
+        info "$pkg ya instalado."
+        return 0
+    fi
+    local tmp; tmp="$(mktemp -d)"
+    git clone --depth 1 "https://aur.archlinux.org/${pkg}.git" "$tmp/$pkg" && \
+        (cd "$tmp/$pkg" && makepkg -si --noconfirm --needed) && info "$pkg instalado desde AUR." || warn "No se pudo instalar $pkg desde AUR."
+    rm -rf "$tmp"
+}
+
 # ---- 1. Paquetes ----
 PACKAGES=(
     # Compositor y herramientas base de Hyprland
@@ -54,6 +67,8 @@ PACKAGES=(
     polkit-gnome
     uwsm
     mesa
+    base-devel
+    git
 
     # Display manager (pantalla de login gráfica)
     sddm
@@ -95,12 +110,18 @@ PACKAGES=(
     networkmanager
     btop
 
+    # Tema GTK (soporte del cursor/tema por defecto)
+    adw-gtk-theme
+
     # Fuente con íconos (usada en toda la barra y los menús)
     ttf-jetbrains-mono-nerd
 )
 
 info "Instalando paquetes con pacman (puede tardar unos minutos)..."
 sudo pacman -S --needed --noconfirm "${PACKAGES[@]}"
+
+info "Instalando tema de cursor/iconos Qogir desde AUR..."
+aur_install qogir-icon-theme
 
 # ---- 2. Servicios ----
 info "Habilitando servicios del sistema..."
@@ -135,6 +156,13 @@ cp -f "$CONFIG_SRC/fuzzel/fuzzel.ini" "$HOME/.config/fuzzel/fuzzel.ini"
 
 # foot (terminal)
 cp -f "$CONFIG_SRC/foot/foot.ini" "$HOME/.config/foot/foot.ini"
+
+# Cursor por defecto (Qogir-Dark) en GTK, XSETTINGS y X11 (Xresources)
+mkdir -p "$HOME/.config/gtk-3.0" "$HOME/.config/gtk-4.0" "$HOME/.config/xsettingsd"
+cp -f "$CONFIG_SRC/gtk/gtk-3.0/settings.ini" "$HOME/.config/gtk-3.0/settings.ini"
+cp -f "$CONFIG_SRC/gtk/gtk-4.0/settings.ini" "$HOME/.config/gtk-4.0/settings.ini"
+cp -f "$CONFIG_SRC/xsettingsd/xsettingsd.conf" "$HOME/.config/xsettingsd/xsettingsd.conf"
+cp -f "$CONFIG_SRC/x11/Xresources" "$HOME/.Xresources"
 
 # starship (prompt)
 cp -f "$CONFIG_SRC/starship/starship.toml" "$HOME/.config/starship.toml"
