@@ -16,7 +16,7 @@ Pensado para correr sobre una instalación de Arch Linux limpia y dejar el entor
 ## Uso
 
 ```bash
-git clone <este-repo>
+git clone https://github.com/SoyTrunix/trunixarch.git
 cd TrunixArch
 chmod +x install.sh
 ./install.sh
