@@ -10,7 +10,8 @@ Pensado para correr sobre una instalación de Arch Linux limpia y dejar el entor
 - **Waybar** (barra superior: workspaces, reloj, tray, micrófono, volumen, red, batería, botón de power).
 - **fuzzel** (launcher de apps y todos los menús: power, perfiles de batería, red, portapapeles).
 - **hyprpaper** (wallpaper, con selector visual con preview en vivo vía `SUPER+B`).
-- Resto de utilidades: `mako` (notificaciones), `hypridle`/`hyprlock` (bloqueo/suspensión), Thunar, `cliphist`, `grim`/`slurp`, `pavucontrol`, `power-profiles-daemon`.
+- **fish + starship** (shell por defecto con prompt minimalista `~ ❯`).
+- Resto de utilidades: `mako` (notificaciones), `hypridle`/`hyprlock` (bloqueo/suspensión), Thunar, `cliphist`, `grim`/`slurp`, `pavucontrol`, `power-profiles-daemon`, `playerctl`, `btop`.
 
 ## Uso
 
@@ -43,3 +44,4 @@ El script pide confirmación antes de instalar nada y usa `sudo` solo para `pacm
 | `SUPER + L` | Bloquear pantalla |
 | `SUPER + 1-0` | Cambiar de workspace |
 | `CTRL + SUPER + X` | Mutear/desmutear micrófono |
+| `CTRL + SHIFT + ESC` | Abrir btop |

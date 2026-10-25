@@ -75,6 +75,8 @@ PACKAGES=(
 
     # Terminal y gestor de archivos
     foot
+    fish
+    starship
     thunar
     thunar-volman
     thunar-archive-plugin
@@ -114,7 +116,7 @@ fi
 # ---- 3. Copiar configuración ----
 info "Copiando configuración a ~/.config ..."
 
-mkdir -p "$HOME/.config/hypr" "$HOME/.config/waybar" "$HOME/.config/fuzzel" "$HOME/.config/foot"
+mkdir -p "$HOME/.config/hypr" "$HOME/.config/waybar" "$HOME/.config/fuzzel" "$HOME/.config/foot" "$HOME/.config/fish/functions"
 
 # Hyprland (config + scripts usados por binds y por Waybar)
 cp -f "$CONFIG_SRC/hypr/hyprland.conf" "$HOME/.config/hypr/hyprland.conf"
@@ -133,6 +135,20 @@ cp -f "$CONFIG_SRC/fuzzel/fuzzel.ini" "$HOME/.config/fuzzel/fuzzel.ini"
 
 # foot (terminal)
 cp -f "$CONFIG_SRC/foot/foot.ini" "$HOME/.config/foot/foot.ini"
+
+# starship (prompt)
+cp -f "$CONFIG_SRC/starship/starship.toml" "$HOME/.config/starship.toml"
+
+# fish (shell + saludo vacío + invocación de starship)
+sed "s|__HOME__|$HOME|g" "$CONFIG_SRC/fish/config.fish" > "$HOME/.config/fish/config.fish"
+cp -f "$CONFIG_SRC/fish/functions/fish_greeting.fish" "$HOME/.config/fish/functions/fish_greeting.fish"
+
+# Poner fish como shell por defecto del usuario (si no lo es ya)
+FISH_PATH="$(command -v fish)"
+if [[ -n "$FISH_PATH" && "$SHELL" != "$FISH_PATH" ]]; then
+    grep -qxF "$FISH_PATH" /etc/shells || echo "$FISH_PATH" | sudo tee -a /etc/shells > /dev/null
+    chsh -s "$FISH_PATH" "$USER" && info "Shell por defecto cambiado a fish." || warn "No se pudo cambiar el shell a fish, hacelo manualmente con: chsh -s $FISH_PATH"
+fi
 
 info "Configuración copiada."
 
