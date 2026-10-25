@@ -103,7 +103,7 @@ PACKAGES=(
     wl-clipboard
     cliphist
     fzf
-    pavucontrol
+    pwvucontrol
     power-profiles-daemon
     brightnessctl
     gsimplecal
