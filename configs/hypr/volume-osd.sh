@@ -13,7 +13,7 @@ info=$(wpctl get-volume "$SINK")
 vol=$(echo "$info" | awk '{printf "%d", $2 * 100}')
 
 if echo "$info" | grep -q MUTED; then
-    notify-send -t 1200 -h string:x-canonical-private-synchronous:volume "Volumen" "Silenciado"
+    notify-send -t 1200 -h string:x-canonical-private-synchronous:volume "Volume" "Muted"
 else
-    notify-send -t 1200 -h string:x-canonical-private-synchronous:volume -h int:value:"$vol" "Volumen" "${vol}%"
+    notify-send -t 1200 -h string:x-canonical-private-synchronous:volume -h int:value:"$vol" "Volume" "${vol}%"
 fi

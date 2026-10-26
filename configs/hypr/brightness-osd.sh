@@ -12,4 +12,4 @@ cur=$(brightnessctl get)
 max=$(brightnessctl max)
 pct=$(( cur * 100 / max ))
 
-notify-send -t 1200 -h string:x-canonical-private-synchronous:brightness -h int:value:"$pct" "Brillo" "${pct}%"
+notify-send -t 1200 -h string:x-canonical-private-synchronous:brightness -h int:value:"$pct" "Brightness" "${pct}%"

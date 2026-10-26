@@ -93,7 +93,7 @@ class Popup(Gtk.Window):
         self.scale.connect("value-changed", self.on_change)
         box.pack_start(self.scale, False, False, 0)
 
-        mute_btn = Gtk.Button(label="Silenciar / Activar")
+        mute_btn = Gtk.Button(label="Mute / Unmute")
         mute_btn.connect("clicked", self.on_mute)
         box.pack_start(mute_btn, False, False, 0)
 
@@ -103,7 +103,7 @@ class Popup(Gtk.Window):
 
     @staticmethod
     def _text(vol, muted):
-        return "Silenciado" if muted else f"Volumen: {vol}%"
+        return "Muted" if muted else f"Volume: {vol}%"
 
     def on_change(self, scale):
         pct = int(scale.get_value())
