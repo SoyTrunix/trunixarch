@@ -150,14 +150,19 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), mouse)
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), mouse)
 hl.bind(mainMod .. " + X", hl.dsp.window.resize(), mouse)
 
+-- Clic fuera de un menú de la barra: lo cierra (no consume el clic).
+local nonConsuming = { non_consuming = true }
+hl.bind("mouse:272", hl.dsp.exec_cmd(hyprDir .. "/menu-click.sh"), nonConsuming)
+hl.bind("mouse:273", hl.dsp.exec_cmd(hyprDir .. "/menu-click.sh"), nonConsuming)
+
 -- ---- Capturas ----
 hl.bind("Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
 hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("grim - | wl-copy"))
 
 -- ---- Audio / brillo / multimedia ----
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), locked_repeating)
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), locked_repeating)
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), locked_repeating)
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(hyprDir .. "/volume-osd.sh up"), locked_repeating)
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(hyprDir .. "/volume-osd.sh down"), locked_repeating)
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(hyprDir .. "/volume-osd.sh mute"), locked_repeating)
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && pkill -RTMIN+8 waybar"), locked_repeating)
 hl.bind("CTRL + " .. mainMod .. " + X", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && pkill -RTMIN+8 waybar"))
 hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"))
@@ -165,5 +170,5 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"))
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"))
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"))
 hl.bind("XF86AudioStop",  hl.dsp.exec_cmd("playerctl stop"))
-hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl set 5%+"), locked_repeating)
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), locked_repeating)
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(hyprDir .. "/brightness-osd.sh up"), locked_repeating)
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(hyprDir .. "/brightness-osd.sh down"), locked_repeating)

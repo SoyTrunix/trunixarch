@@ -1,8 +1,8 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 34,
-    "spacing": 4,
+    "height": 32,
+    "spacing": 2,
     "margin-top": 0,
     "margin-left": 0,
     "margin-right": 0,
@@ -17,19 +17,19 @@
         "format": "{icon}",
         "on-click": "activate",
         "format-icons": {
-            "active": "●",
-            "default": "○",
-            "empty": "○"
+            "active": "■",
+            "default": "□",
+            "empty": "□"
         },
         "persistent-workspaces": {
-            "*": 5
+            "*": 4
         }
     },
 
     "custom/clock": {
         "exec": "date '+%H:%M  %d/%m'",
         "interval": 10,
-        "on-click": "~/.config/hypr/calendar-toggle.sh",
+        "on-click": "~/.config/hypr/bar-menu.sh clock python3 ~/.config/hypr/calendar-popup.py",
         "tooltip": false
     },
 
@@ -50,7 +50,7 @@
         "exec": "~/.config/hypr/volume-status.sh",
         "return-type": "json",
         "interval": 2,
-        "on-click": "pavucontrol",
+        "on-click": "~/.config/hypr/bar-menu.sh volume python3 ~/.config/hypr/volume-popup.py",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
         "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
@@ -60,19 +60,19 @@
         "exec": "~/.config/hypr/network-status.sh",
         "return-type": "json",
         "interval": 5,
-        "on-click": "~/.config/hypr/network-menu.sh"
+        "on-click": "~/.config/hypr/bar-menu.sh network ~/.config/hypr/network-menu.sh"
     },
 
     "custom/battery": {
         "exec": "~/.config/hypr/battery-status.sh",
         "return-type": "json",
         "interval": 15,
-        "on-click": "~/.config/hypr/power-profile-menu.sh"
+        "on-click": "~/.config/hypr/bar-menu.sh battery ~/.config/hypr/power-profile-menu.sh"
     },
 
     "custom/power": {
         "format": "⏻",
         "tooltip": false,
-        "on-click": "~/.config/hypr/powermenu.sh"
+        "on-click": "~/.config/hypr/bar-menu.sh power ~/.config/hypr/powermenu.sh"
     }
 }

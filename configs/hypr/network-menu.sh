@@ -2,13 +2,12 @@
 # Wifi connection menu using fuzzel, replacing nmtui.
 printf -v LOCK_ICON '\UF023'
 
-FUZZEL="fuzzel --config $HOME/.config/fuzzel/fuzzel.ini --dmenu"
+FUZZEL="fuzzel --config $HOME/.config/fuzzel/fuzzel.ini --dmenu $($HOME/.config/hypr/menu-pos.sh)"
 
-nmcli device wifi rescan 2>/dev/null
-sleep 1
+(nmcli device wifi rescan &>/dev/null &)   # rescaneo en segundo plano, no bloquea la apertura
 
 # Build list: "SSID  (signal%) [lock icon if secured]"
-mapfile -t networks < <(nmcli -t -f SSID,SIGNAL,SECURITY device wifi list | awk -F: '!seen[$1]++ && $1 != "" {print}')
+mapfile -t networks < <(nmcli -t -f SSID,SIGNAL,SECURITY device wifi list --rescan no | awk -F: '!seen[$1]++ && $1 != "" {print}')
 
 menu_items=""
 count=0
@@ -22,7 +21,7 @@ for net in "${networks[@]}"; do
     count=$((count + 1))
 done
 
-selected=$(echo -e "$menu_items" | $FUZZEL --prompt="Network: " --minimal-lines --lines "$count" -w 30)
+selected=$(echo -e "$menu_items" | $FUZZEL --prompt="Network: " --minimal-lines --lines "$count" -w 22)
 [[ -z "$selected" ]] && exit 0
 
 # Strip the leading icon (if any) and the trailing "(signal%)" to get the SSID.
@@ -34,7 +33,7 @@ connect_new() {
 
     if [[ "$security" != "--" && -n "$security" ]]; then
         local password
-        password=$(echo "" | $FUZZEL --prompt="Password for $ssid: " --password --minimal-lines --lines 0 -w 30)
+        password=$(echo "" | $FUZZEL --prompt="Password: " --password --minimal-lines --lines 0 -w 30)
         [[ -z "$password" ]] && exit 0
         nmcli device wifi connect "$ssid" password "$password" && notify-send "Network" "Connected to $ssid" || notify-send "Network" "Failed to connect to $ssid"
     else

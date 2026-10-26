@@ -2,7 +2,7 @@
 current=$(powerprofilesctl get)
 
 entries="Balanced\nMax Performance\nBattery Saver"
-selected=$(echo -e "$entries" | fuzzel --config ~/.config/fuzzel/fuzzel.ini --dmenu --hide-prompt --minimal-lines --lines 3 -w 26)
+selected=$(echo -e "$entries" | fuzzel --config ~/.config/fuzzel/fuzzel.ini --dmenu --hide-prompt --minimal-lines --lines 3 -w 18 $(~/.config/hypr/menu-pos.sh))
 
 case "$selected" in
     "Balanced") powerprofilesctl set balanced ;;
