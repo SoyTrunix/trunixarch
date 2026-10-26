@@ -103,12 +103,25 @@ PACKAGES=(
     wl-clipboard
     cliphist
     fzf
-    pwvucontrol
+    pavucontrol
     power-profiles-daemon
     brightnessctl
-    gsimplecal
     networkmanager
     btop
+    procps-ng
+    libnotify
+    xorg-xrdb
+    xsettingsd
+
+    # Python + GTK3 + layer-shell (popups de volumen y calendario de la barra)
+    python
+    python-gobject
+    gtk3
+    gtk-layer-shell
+
+    # Temas de Qt (qt6ct/qt5ct con paleta oscura)
+    qt6ct
+    qt5ct
 
     # Tema GTK (soporte del cursor/tema por defecto)
     adw-gtk-theme
@@ -141,11 +154,13 @@ mkdir -p "$HOME/.config/hypr" "$HOME/.config/waybar" "$HOME/.config/fuzzel" "$HO
 
 # Hyprland (config + scripts usados por binds y por Waybar)
 cp -f "$CONFIG_SRC/hypr/hyprland.lua" "$HOME/.config/hypr/hyprland.lua"
-cp -f "$CONFIG_SRC/hypr/"*.sh "$HOME/.config/hypr/"
-chmod +x "$HOME/.config/hypr/"*.sh
+cp -f "$CONFIG_SRC/hypr/"*.sh "$CONFIG_SRC/hypr/"*.py "$HOME/.config/hypr/"
+chmod +x "$HOME/.config/hypr/"*.sh "$HOME/.config/hypr/"*.py
 
 # hyprpaper.conf: reemplazar el placeholder __HOME__ por la home real del usuario
-sed "s|__HOME__|$HOME|g" "$CONFIG_SRC/hypr/hyprpaper.conf" > "$HOME/.config/hypr/hyprpaper.conf"
+for f in hyprpaper.conf hyprlock.conf hypridle.conf; do
+    sed "s|__HOME__|$HOME|g" "$CONFIG_SRC/hypr/$f" > "$HOME/.config/hypr/$f"
+done
 
 # Waybar
 cp -f "$CONFIG_SRC/waybar/config.jsonc" "$HOME/.config/waybar/config.jsonc"
@@ -182,8 +197,8 @@ info "Configuración copiada."
 
 # ---- 4. Wallpaper de ejemplo ----
 mkdir -p "$HOME/Pictures/Wallpapers"
-if [[ -f "$ASSETS_SRC/wallpaper.png" ]]; then
-    cp -n "$ASSETS_SRC/wallpaper.png" "$HOME/Pictures/Wallpapers/wallhaven-8g8q32_1920x1080.png"
+if [[ -f "$ASSETS_SRC/Wallpaper.jpg" ]]; then
+    cp -n "$ASSETS_SRC/Wallpaper.jpg" "$HOME/Pictures/Wallpapers/Wallpaper.jpg"
     info "Wallpaper de ejemplo copiado a ~/Pictures/Wallpapers/"
 else
     warn "No se encontró el wallpaper de ejemplo en $ASSETS_SRC — vas a necesitar poner una imagen vos mismo y ajustar ~/.config/hypr/hyprpaper.conf"
