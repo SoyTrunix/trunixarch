@@ -26,7 +26,7 @@ El script pide confirmación antes de instalar nada y usa `sudo` solo para `pacm
 
 ## Después de instalar
 
-1. Corré `hyprctl monitors` dentro de una sesión de Hyprland y ajustá las líneas `monitor =` en `~/.config/hypr/hyprland.conf` si tus pantallas no se llaman `eDP-1`/`HDMI-A-1`.
+1. Corré `hyprctl monitors` dentro de una sesión de Hyprland y ajustá las líneas `monitor =` en `~/.config/hypr/hyprland.lua` si tus pantallas no se llaman `eDP-1`/`HDMI-A-1`.
 2. Elegí la sesión **Hyprland** en la pantalla de login (SDDM u otro display manager).
 
 ## Atajos principales

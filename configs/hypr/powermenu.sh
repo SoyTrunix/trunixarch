@@ -6,5 +6,5 @@ case "$selected" in
     *Shutdown*) systemctl poweroff ;;
     *Reboot*) systemctl reboot ;;
     *Suspend*) systemctl suspend ;;
-    *"Log out"*) hyprctl dispatch exit ;;
+    *"Log out"*) hyprctl dispatch 'hl.dsp.exit()' 2>/dev/null | grep -q ok || hyprctl dispatch exit ;;
 esac

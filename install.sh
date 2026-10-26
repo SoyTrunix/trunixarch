@@ -140,7 +140,7 @@ info "Copiando configuración a ~/.config ..."
 mkdir -p "$HOME/.config/hypr" "$HOME/.config/waybar" "$HOME/.config/fuzzel" "$HOME/.config/foot" "$HOME/.config/fish/functions"
 
 # Hyprland (config + scripts usados por binds y por Waybar)
-cp -f "$CONFIG_SRC/hypr/hyprland.conf" "$HOME/.config/hypr/hyprland.conf"
+cp -f "$CONFIG_SRC/hypr/hyprland.lua" "$HOME/.config/hypr/hyprland.lua"
 cp -f "$CONFIG_SRC/hypr/"*.sh "$HOME/.config/hypr/"
 chmod +x "$HOME/.config/hypr/"*.sh
 
@@ -195,7 +195,7 @@ echo "============================================================"
 info "Instalación completa."
 echo "============================================================"
 warn "IMPORTANTE - revisá/ajustá manualmente antes de entrar a la sesión:"
-echo "  - ~/.config/hypr/hyprland.conf: las líneas 'monitor =' tienen los nombres"
+echo "  - ~/.config/hypr/hyprland.lua: las líneas 'monitor =' tienen los nombres"
 echo "    de pantalla de la máquina original (eDP-1 / HDMI-A-1). Corré 'hyprctl monitors'"
 echo "    después de entrar a Hyprland y ajustá los nombres si no coinciden."
 echo "  - Elegí la sesión 'Hyprland' en tu display manager (SDDM u otro) al iniciar sesión."
