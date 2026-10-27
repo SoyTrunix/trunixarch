@@ -21,8 +21,9 @@ local mouse            = { mouse = true }
 local locked_repeating = { locked = true, repeating = true }
 
 -- ---- Monitores ----
-hl.monitor({ output = "eDP-1",    mode = "1920x1080@60",  position = "0x0",  scale = 1 })
-hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@100", position = "auto", scale = 1 })
+-- Regla genérica para cualquier monitor: máxima tasa de refresco ("highrr") y
+-- ubicación automática (uno al lado del otro). No depende de nombres ni resoluciones.
+hl.monitor({ output = "", mode = "highrr", position = "auto", scale = 1 })
 
 -- ---- Variables de entorno ----
 hl.env("XCURSOR_THEME", "Qogir-Dark")
