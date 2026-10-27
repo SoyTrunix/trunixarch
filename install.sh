@@ -175,6 +175,17 @@ cp -f "$CONFIG_SRC/foot/foot.ini" "$HOME/.config/foot/foot.ini"
 # Cursor por defecto (Qogir-Dark) en GTK, XSETTINGS y X11 (Xresources)
 mkdir -p "$HOME/.config/gtk-3.0" "$HOME/.config/gtk-4.0" "$HOME/.config/xsettingsd"
 cp -f "$CONFIG_SRC/gtk/gtk-3.0/settings.ini" "$HOME/.config/gtk-3.0/settings.ini"
+cp -f "$CONFIG_SRC/gtk/gtk-3.0/gtk.css" "$HOME/.config/gtk-3.0/gtk.css"
+cp -f "$CONFIG_SRC/gtk/gtk-3.0/bookmarks" "$HOME/.config/gtk-3.0/bookmarks"
+cp -f "$CONFIG_SRC/gtk/gtk-4.0/settings.ini" "$HOME/.config/gtk-4.0/settings.ini"
+cp -f "$CONFIG_SRC/gtk/gtk-4.0/gtk.css" "$HOME/.config/gtk-4.0/gtk.css"
+
+# Fuente por defecto del sistema (fontconfig) y Thunar (tamaño, barra lateral, marcadores)
+mkdir -p "$HOME/.config/fontconfig" "$HOME/.config/xfce4/xfconf/xfce-perchannel-xml"
+cp -f "$CONFIG_SRC/fontconfig/fonts.conf" "$HOME/.config/fontconfig/fonts.conf"
+cp -f "$CONFIG_SRC/xfce4/xfconf/xfce-perchannel-xml/thunar.xml" "$HOME/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml"
+cp -f "$CONFIG_SRC/qt/qt6ct.conf" "$HOME/.config/qt6ct/qt6ct.conf" 2>/dev/null || { mkdir -p "$HOME/.config/qt6ct" && cp -f "$CONFIG_SRC/qt/qt6ct.conf" "$HOME/.config/qt6ct/qt6ct.conf"; }
+cp -f "$CONFIG_SRC/qt/qt5ct.conf" "$HOME/.config/qt5ct/qt5ct.conf" 2>/dev/null || { mkdir -p "$HOME/.config/qt5ct" && cp -f "$CONFIG_SRC/qt/qt5ct.conf" "$HOME/.config/qt5ct/qt5ct.conf"; }
 cp -f "$CONFIG_SRC/gtk/gtk-4.0/settings.ini" "$HOME/.config/gtk-4.0/settings.ini"
 cp -f "$CONFIG_SRC/xsettingsd/xsettingsd.conf" "$HOME/.config/xsettingsd/xsettingsd.conf"
 cp -f "$CONFIG_SRC/x11/Xresources" "$HOME/.Xresources"

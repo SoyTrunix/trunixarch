@@ -1,0 +1,22 @@
+/* Paleta TrunixArch (Catppuccin Mocha): misma de waybar, menús y terminal */
+@define-color trx_bg #1e1e2e;
+@define-color trx_surface #313244;
+@define-color trx_border #45475a;
+@define-color trx_text #cdd6f4;
+@define-color trx_muted #6c7086;
+@define-color trx_dark #181825;
+@define-color trx_accent #89b4fa;
+
+* { font-family: "JetBrainsMono Nerd Font"; }
+window, .background, dialog, .view, treeview.view, iconview { background-color: @trx_bg; color: @trx_text; }
+headerbar button, toolbar button, .toolbar button, .titlebar button { background-color: @trx_dark; border-color: @trx_dark; }
+headerbar, .titlebar, toolbar, menubar { background-image: none; background-color: @trx_bg; color: @trx_text; border-color: @trx_border; }
+treeview.view:selected, iconview:selected, .view:selected { background-color: @trx_surface; color: @trx_accent; }
+menu, .menu, .context-menu { background-color: @trx_bg; border: 1px solid @trx_border; border-radius: 6px; color: @trx_text; }
+menuitem:hover, menu menuitem:hover { background-color: @trx_surface; color: @trx_accent; }
+entry, .entry { background-color: @trx_dark; color: @trx_text; border: 1px solid @trx_border; border-radius: 6px; }
+button { background-image: none; background-color: @trx_dark; color: @trx_text; border: 1px solid @trx_border; border-radius: 6px; }
+button:hover { background-color: alpha(@trx_accent, 0.25); }
+scrollbar slider { background-color: @trx_border; border-radius: 6px; }
+tooltip, tooltip.background { background-color: @trx_bg; color: @trx_text; border: 1px solid @trx_border; border-radius: 6px; }
+statusbar, .statusbar { background-color: @trx_bg; color: @trx_muted; }

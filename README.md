@@ -1,35 +1,31 @@
 # TrunixArch
 
-Instalador de mi entorno de escritorio para Arch Linux: **Hyprland + Waybar + fuzzel + hyprpaper**.
+**Un escritorio Arch pulido, rápido y listo en minutos.**
 
-Pensado para correr sobre una instalación de Arch Linux limpia y dejar el entorno funcionando tal cual, sin necesidad de armar todo a mano de nuevo.
+Hyprland + Waybar + fuzzel, con una estética coherente de punta a punta: barra, menús, terminal y popups comparten paleta, tipografía y animaciones.
 
-## Qué instala y configura
+## ✨ Qué tiene
 
-- **Hyprland** (compositor, config de ventanas flotantes estilo escritorio tradicional, atajos de teclado).
-- **Waybar** (barra superior: workspaces, reloj, tray, micrófono, volumen, red, batería, botón de power).
-- **fuzzel** (launcher de apps y todos los menús: power, perfiles de batería, red, portapapeles).
-- **hyprpaper** (wallpaper, con selector visual con preview en vivo vía `SUPER+B`).
-- **fish + starship** (shell por defecto con prompt minimalista `~ ❯`).
-- Resto de utilidades: `mako` (notificaciones), `hypridle`/`hyprlock` (bloqueo/suspensión), Thunar, `cliphist`, `grim`/`slurp`, `pavucontrol`, `power-profiles-daemon`, `playerctl`, `btop`.
+- **Barra elegante** — workspaces, reloj, volumen, micrófono, red, batería y power, todo a un clic.
+- **Menús que se sienten nativos** — power, perfiles de energía, red y portapapeles, siempre al alcance del icono.
+- **Calendario y volumen en un clic** — popups anclados a la barra, con cierre inteligente.
+- **Control total del sistema** — brillo, volumen y multimedia con feedback instantáneo.
+- **Wallpapers con preview en vivo** — elegí el fondo mientras lo ves cambiar, y el lockscreen lo sigue.
+- **Terminal lista para usar** — foot + fish + starship, con la misma paleta del escritorio.
 
-## Uso
+## 🚀 Instalación en un comando
 
 ```bash
 git clone https://github.com/SoyTrunix/trunixarch.git
 cd TrunixArch
-chmod +x install.sh
-./install.sh
+chmod +x install.sh && ./install.sh
 ```
 
-El script pide confirmación antes de instalar nada y usa `sudo` solo para `pacman` y para habilitar servicios.
+El script instala los paquetes, copia toda la configuración y te deja listo para iniciar sesión. Solo usa `sudo` para `pacman` y los servicios, y siempre pide confirmación antes de tocar nada.
 
-## Después de instalar
+Después de instalar, elegí la sesión **Hyprland** en el login. Si tus pantallas no se llaman `eDP-1` o `HDMI-A-1`, no hace falta tocar nada: la config detecta y ubica cada monitor sola.
 
-1. Corré `hyprctl monitors` dentro de una sesión de Hyprland y ajustá las líneas `monitor =` en `~/.config/hypr/hyprland.lua` si tus pantallas no se llaman `eDP-1`/`HDMI-A-1`.
-2. Elegí la sesión **Hyprland** en la pantalla de login (SDDM u otro display manager).
-
-## Atajos principales
+## ⌨️ Atajos
 
 | Atajo | Acción |
 |---|---|
@@ -37,11 +33,11 @@ El script pide confirmación antes de instalar nada y usa `sudo` solo para `pacm
 | `SUPER + R` | Launcher de apps |
 | `SUPER + E` | Explorador de archivos |
 | `SUPER + Q` | Cerrar ventana |
-| `SUPER + V` | Alternar flotante/tiling |
-| `SUPER + B` | Cambiar wallpaper (preview en vivo) |
+| `SUPER + V` | Flotante / tiling |
+| `SUPER + B` | Cambiar wallpaper |
 | `SUPER + C` | Historial de portapapeles |
-| `SUPER + N` | Activar/desactivar notificaciones |
+| `SUPER + N` | Activar / desactivar notificaciones |
 | `SUPER + L` | Bloquear pantalla |
-| `SUPER + 1-0` | Cambiar de workspace |
-| `CTRL + SUPER + X` | Mutear/desmutear micrófono |
+| `SUPER + 1…0` | Cambiar de workspace |
+| `CTRL + SUPER + X` | Mutear / desmutear micrófono |
 | `CTRL + SHIFT + ESC` | Abrir btop |

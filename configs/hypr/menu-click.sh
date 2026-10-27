@@ -8,25 +8,16 @@ STATE="${XDG_RUNTIME_DIR:-/tmp}/bar-menu.state"
 LASTCLOSE="${XDG_RUNTIME_DIR:-/tmp}/bar-menu.lastclose"
 POPUP_RE='^python3 .*(calendar|volume)-popup\.py'
 
-# Si el menú se acaba de abrir (menos de 1 s), este clic es el que lo abrió: no tocarlo.
-if [[ -f "$STATE" ]] && (( $(date +%s) - $(stat -c %Y "$STATE") < 1 )); then
-    exit 0
-fi
-
 pids=""
 if [[ -f "$STATE" ]]; then
-    read -r _ID PID < "$STATE"
+    read -r _ID PID OLDX < "$STATE"
     kill -0 "$PID" 2>/dev/null && pids="$PID"
 fi
 pids="$pids $(pgrep -x fuzzel | tr '\n' ' ') $(pgrep -f "$POPUP_RE" | tr '\n' ' ')"
 pids=$(echo $pids)
 [[ -z "$pids" ]] && { rm -f "$STATE"; exit 0; }
 
-# Un menú lanzado hace menos de 2 s es el que acaba de abrir este mismo clic: no tocarlo.
-for p in $pids; do
-    age=$(ps -o etimes= -p "$p" 2>/dev/null | tr -d ' ')
-    [[ -n "$age" ]] && (( age < 2 )) && exit 0
-done
+
 
 read -r cx cy < <(hyprctl cursorpos | tr -d ',')
 close_all() {
@@ -35,8 +26,19 @@ close_all() {
     rm -f "$STATE"
 }
 if (( cy < 34 )); then
+    # Solo en la barra: si el menú se acaba de abrir con este clic, no tocarlo.
+    if [[ -f "$STATE" ]] && (( $(date +%s) - $(stat -c %Y "$STATE") < 1 )); then exit 0; fi
+    for p in $pids; do
+        age=$(ps -o etimes= -p "$p" 2>/dev/null | tr -d ' ')
+        [[ -n "$age" ]] && (( age < 2 )) && exit 0
+    done
     close_all
     date +%s%3N > "$LASTCLOSE"
+    # Si el clic fue en OTRO icono, repetirlo cuando el menú ya no tiene el foco,
+    # para que Waybar abra el menú de ese icono. Mismo icono → solo cierra.
+    if [[ -z "$OLDX" ]] || (( cx < OLDX - 60 || cx > OLDX + 60 )); then
+        ( sleep 0.6 && ydotool click 0xC0 >/dev/null 2>&1 ) &
+    fi
     exit 0
 fi
 

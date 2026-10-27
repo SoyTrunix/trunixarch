@@ -1,0 +1,34 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<channel name="thunar" version="1.0">
+  <property name="last-view" type="string" value="ThunarDetailsView"/>
+  <property name="last-icon-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_100_PERCENT"/>
+  <property name="last-window-maximized" type="bool" value="true"/>
+  <property name="last-separator-position" type="int" value="172"/>
+  <property name="misc-status-bar-active-info" type="uint" value="15"/>
+  <property name="last-show-hidden" type="bool" value="true"/>
+  <property name="misc-single-click" type="bool" value="false"/>
+  <property name="default-view" type="string" value="ThunarDetailsView"/>
+  <property name="misc-thumbnail-mode" type="string" value="THUNAR_THUMBNAIL_MODE_ALWAYS"/>
+  <property name="misc-text-beside-icons" type="bool" value="false"/>
+  <property name="misc-use-csd" type="bool" value="false"/>
+  <property name="last-details-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_38_PERCENT"/>
+  <property name="last-details-view-column-widths" type="string" value="50,50,123,116,50,50,50,50,331,50,50,89,50,548"/>
+  <property name="last-side-pane" type="string" value="ThunarShortcutsPane"/>
+  <property name="misc-volume-management" type="bool" value="true"/>
+  <property name="shortcuts-pane-icon-size" type="string" value="THUNAR_ICON_SIZE_16"/>
+  <property name="last-sort-column" type="string" value="THUNAR_COLUMN_NAME"/>
+  <property name="last-sort-order" type="string" value="GTK_SORT_DESCENDING"/>
+  <property name="last-toolbar-items" type="string" value="menu:1,back:0,forward:0,open-parent:1,open-home:0,new-tab:0,new-window:0,toggle-split-view:0,undo:0,redo:0,zoom-out:0,zoom-in:0,zoom-reset:0,view-as-icons:0,view-as-detailed-list:0,view-as-compact-list:0,view-switcher:0,location-bar:1,reload:0,search:1,uca-action-1710575157271461-1:0"/>
+  <property name="last-menubar-visible" type="bool" value="false"/>
+  <property name="misc-expandable-folders" type="bool" value="true"/>
+  <property name="last-window-width" type="int" value="825"/>
+  <property name="last-window-height" type="int" value="815"/>
+  <property name="misc-remember-geometry" type="bool" value="true"/>
+  <property name="hidden-bookmarks" type="array">
+    <value type="string" value="recent:///"/>
+    <value type="string" value="computer:///"/>
+    <value type="string" value="network:///"/>
+    <value type="string" value="file:///home/emanuel/Desktop"/>
+  </property>
+</channel>

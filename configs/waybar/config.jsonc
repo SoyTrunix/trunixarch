@@ -49,7 +49,7 @@
     "custom/volume": {
         "exec": "~/.config/hypr/volume-status.sh",
         "return-type": "json",
-        "interval": 2,
+        "interval": 3,
         "on-click": "~/.config/hypr/bar-menu.sh volume python3 ~/.config/hypr/volume-popup.py",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
@@ -59,7 +59,7 @@
     "custom/network": {
         "exec": "~/.config/hypr/network-status.sh",
         "return-type": "json",
-        "interval": 5,
+        "interval": 15,
         "on-click": "~/.config/hypr/bar-menu.sh network ~/.config/hypr/network-menu.sh"
     },
 

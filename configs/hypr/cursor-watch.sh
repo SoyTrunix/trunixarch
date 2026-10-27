@@ -8,7 +8,7 @@ SYNC="$HOME/.config/hypr/cursor-sync.sh"
 current() { grep -m1 '^gtk-cursor-theme-name=' "$GTK3" 2>/dev/null; }
 
 last=$(current)
-while sleep 2; do
+while sleep 5; do
     now=$(current)
     if [[ "$now" != "$last" ]]; then
         last="$now"
