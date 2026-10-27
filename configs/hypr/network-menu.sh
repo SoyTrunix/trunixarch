@@ -2,7 +2,7 @@
 # Wifi connection menu using fuzzel, replacing nmtui.
 printf -v LOCK_ICON '\UF023'
 
-FUZZEL="fuzzel --config $HOME/.config/fuzzel/fuzzel.ini --dmenu $($HOME/.config/hypr/menu-pos.sh)"
+FUZZEL="fuzzel --config $HOME/.config/fuzzel/fuzzel.ini --dmenu --hide-prompt $($HOME/.config/hypr/menu-pos.sh)"
 
 (nmcli device wifi rescan &>/dev/null &)   # rescaneo en segundo plano, no bloquea la apertura
 
@@ -33,7 +33,7 @@ connect_new() {
 
     if [[ "$security" != "--" && -n "$security" ]]; then
         local password
-        password=$(echo "" | $FUZZEL --prompt="Password: " --password --minimal-lines --lines 0 -w 30)
+        password=$(echo "" | fuzzel --config $HOME/.config/fuzzel/fuzzel.ini --dmenu --password --prompt="Password: " --minimal-lines --lines 0 -w 22 $($HOME/.config/hypr/menu-pos.sh))
         [[ -z "$password" ]] && exit 0
         nmcli device wifi connect "$ssid" password "$password" && notify-send "Network" "Connected to $ssid" || notify-send "Network" "Failed to connect to $ssid"
     else
