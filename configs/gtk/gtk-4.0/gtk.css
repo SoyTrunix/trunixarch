@@ -20,3 +20,45 @@ button:hover { background-color: alpha(@trx_accent, 0.25); }
 scrollbar slider { background-color: @trx_border; border-radius: 6px; }
 tooltip, tooltip.background { background-color: @trx_bg; color: @trx_text; border: 1px solid @trx_border; border-radius: 6px; }
 statusbar, .statusbar { background-color: @trx_bg; color: @trx_muted; }
+
+/* Diálogos (Open/Save File, portal): barra superior y botones con la misma paleta */
+headerbar, .titlebar, .titlebar.header, headerbar:backdrop, .titlebar:backdrop {
+    background-color: @trx_bg;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    color: @trx_text;
+}
+headerbar button, .titlebar button, headerbar .button, .titlebar .button,
+headerbar button.flat, .titlebar button.flat {
+    background-color: @trx_dark;
+    background-image: none;
+    border: 1px solid @trx_border;
+    box-shadow: none;
+    color: @trx_text;
+}
+headerbar button:hover, .titlebar button:hover { background-color: alpha(@trx_accent, 0.25); }
+filechooser, .filechooser, .view, .sidebar, .sidebar row, placessidebar, placessidebar row {
+    background-color: @trx_bg;
+    color: @trx_text;
+}
+placessidebar row:selected, .sidebar row:selected { background-color: @trx_surface; color: @trx_accent; }
+
+/* Barra lateral de los diálogos de archivos: mismo fondo que el resto (sobrescribe el tema) */
+placessidebar, placessidebar list, placessidebar row, .sidebar, .sidebar list, .sidebar row,
+.navigation-sidebar, .navigation-sidebar list, .navigation-sidebar row, .sidebar > scrolledwindow,
+.sidebar > scrolledwindow > viewport, .sidebar > scrolledwindow > viewport > list {
+    background-color: @trx_bg;
+    background-image: none;
+    color: @trx_text;
+}
+
+/* Colores con nombre de libadwaita: sobrescritos para que la barra lateral y el resto usen la paleta */
+@define-color sidebar_bg_color #1e1e2e;
+@define-color sidebar_fg_color #cdd6f4;
+@define-color sidebar_backdrop_color #1e1e2e;
+@define-color sidebar_border_color #45475a;
+@define-color secondary_sidebar_bg_color #1e1e2e;
+@define-color view_bg_color #1e1e2e;
+@define-color window_bg_color #1e1e2e;
+@define-color headerbar_bg_color #1e1e2e;

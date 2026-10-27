@@ -64,6 +64,7 @@ PACKAGES=(
     hyprland
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk
+    xdg-desktop-portal-lxqt
     polkit-gnome
     uwsm
     mesa
@@ -119,7 +120,7 @@ PACKAGES=(
     gtk3
     gtk-layer-shell
 
-    # Temas de Qt (qt6ct/qt5ct con paleta oscura)
+    # Temas de Qt (qt6ct/qt5ct con paleta Catppuccin) y portal de archivos LXQt
     qt6ct
     qt5ct
 
@@ -184,8 +185,16 @@ cp -f "$CONFIG_SRC/gtk/gtk-4.0/gtk.css" "$HOME/.config/gtk-4.0/gtk.css"
 mkdir -p "$HOME/.config/fontconfig" "$HOME/.config/xfce4/xfconf/xfce-perchannel-xml"
 cp -f "$CONFIG_SRC/fontconfig/fonts.conf" "$HOME/.config/fontconfig/fonts.conf"
 cp -f "$CONFIG_SRC/xfce4/xfconf/xfce-perchannel-xml/thunar.xml" "$HOME/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml"
-cp -f "$CONFIG_SRC/qt/qt6ct.conf" "$HOME/.config/qt6ct/qt6ct.conf" 2>/dev/null || { mkdir -p "$HOME/.config/qt6ct" && cp -f "$CONFIG_SRC/qt/qt6ct.conf" "$HOME/.config/qt6ct/qt6ct.conf"; }
-cp -f "$CONFIG_SRC/qt/qt5ct.conf" "$HOME/.config/qt5ct/qt5ct.conf" 2>/dev/null || { mkdir -p "$HOME/.config/qt5ct" && cp -f "$CONFIG_SRC/qt/qt5ct.conf" "$HOME/.config/qt5ct/qt5ct.conf"; }
+mkdir -p "$HOME/.config/qt6ct/colors" "$HOME/.config/qt5ct"
+cp -f "$CONFIG_SRC/qt/colors/catppuccin-mocha.conf" "$HOME/.config/qt6ct/colors/catppuccin-mocha.conf"
+sed "s|__HOME__|$HOME|g" "$CONFIG_SRC/qt/qt6ct.conf" > "$HOME/.config/qt6ct/qt6ct.conf"
+sed "s|__HOME__|$HOME|g" "$CONFIG_SRC/qt/qt5ct.conf" > "$HOME/.config/qt5ct/qt5ct.conf"
+
+# Portal de archivos LXQt (diálogo Abrir/Guardar) con el mismo tema Qt que el resto
+mkdir -p "$HOME/.config/xdg-desktop-portal" "$HOME/.config/systemd/user/xdg-desktop-portal-lxqt.service.d"
+cp -f "$CONFIG_SRC/xdg-desktop-portal/hyprland-portals.conf" "$HOME/.config/xdg-desktop-portal/hyprland-portals.conf"
+cp -f "$CONFIG_SRC/systemd/xdg-desktop-portal-lxqt.service.d/qt-theme.conf" "$HOME/.config/systemd/user/xdg-desktop-portal-lxqt.service.d/qt-theme.conf"
+systemctl --user daemon-reload 2>/dev/null || true
 cp -f "$CONFIG_SRC/gtk/gtk-4.0/settings.ini" "$HOME/.config/gtk-4.0/settings.ini"
 cp -f "$CONFIG_SRC/xsettingsd/xsettingsd.conf" "$HOME/.config/xsettingsd/xsettingsd.conf"
 cp -f "$CONFIG_SRC/x11/Xresources" "$HOME/.Xresources"
