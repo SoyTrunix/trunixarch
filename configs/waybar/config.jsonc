@@ -9,21 +9,15 @@
     "margin-bottom": 0,
     "exclusive": true,
 
-    "modules-left": ["hyprland/workspaces"],
+    "modules-left": ["custom/workspaces"],
     "modules-center": ["custom/clock"],
     "modules-right": ["tray", "custom/mic", "custom/volume", "custom/network", "custom/battery", "custom/power"],
 
-    "hyprland/workspaces": {
-        "format": "{icon}",
-        "on-click": "activate",
-        "format-icons": {
-            "active": "■",
-            "default": "□",
-            "empty": "□"
-        },
-        "persistent-workspaces": {
-            "*": 4
-        }
+    "custom/workspaces": {
+        "exec": "~/.config/hypr/workspaces-status.py",
+        "return-type": "json",
+        "markup": "pango",
+        "tooltip": true
     },
 
     "custom/clock": {

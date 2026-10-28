@@ -19,18 +19,9 @@ window#waybar {
     padding-right: 0;
 }
 
-#workspaces button {
-    padding: 0 6px;
+#custom-workspaces {
+    padding: 0 8px;
     color: #6c7086;
-}
-
-#workspaces button.active {
-    color: #89b4fa;
-}
-
-#workspaces button:hover {
-    background: rgba(137, 180, 250, 0.15);
-    border-radius: 8px;
 }
 
 #custom-clock,
@@ -68,6 +59,10 @@ window#waybar {
 
 #custom-battery.charging {
     color: #a6e3a1;
+}
+
+#custom-battery.discharging {
+    color: #ffffff;
 }
 
 #custom-battery.critical {

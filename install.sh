@@ -89,7 +89,7 @@ PACKAGES=(
     hypridle
     mako
 
-    # Terminal y gestor de archivos
+    # Terminal y gestor de archivos (gvfs: papelera y MTP para teléfonos)
     foot
     fish
     starship
@@ -97,6 +97,8 @@ PACKAGES=(
     thunar-volman
     thunar-archive-plugin
     gvfs
+    gvfs-mtp
+    libmtp
 
     # Utilidades del sistema usadas por los scripts de la barra/atajos
     grim
@@ -177,7 +179,6 @@ cp -f "$CONFIG_SRC/foot/foot.ini" "$HOME/.config/foot/foot.ini"
 mkdir -p "$HOME/.config/gtk-3.0" "$HOME/.config/gtk-4.0" "$HOME/.config/xsettingsd"
 cp -f "$CONFIG_SRC/gtk/gtk-3.0/settings.ini" "$HOME/.config/gtk-3.0/settings.ini"
 cp -f "$CONFIG_SRC/gtk/gtk-3.0/gtk.css" "$HOME/.config/gtk-3.0/gtk.css"
-cp -f "$CONFIG_SRC/gtk/gtk-3.0/bookmarks" "$HOME/.config/gtk-3.0/bookmarks"
 cp -f "$CONFIG_SRC/gtk/gtk-4.0/settings.ini" "$HOME/.config/gtk-4.0/settings.ini"
 cp -f "$CONFIG_SRC/gtk/gtk-4.0/gtk.css" "$HOME/.config/gtk-4.0/gtk.css"
 
@@ -216,7 +217,10 @@ fi
 info "Configuración copiada."
 
 # ---- 4. Wallpaper de ejemplo ----
-mkdir -p "$HOME/Pictures/Wallpapers"
+# Carpetas de usuario estándar + Projects y la carpeta de wallpapers
+for d in Desktop Downloads Documents Pictures Videos Music Projects Pictures/Wallpapers; do
+    mkdir -p "$HOME/$d"
+done
 if [[ -f "$ASSETS_SRC/Wallpaper.jpg" ]]; then
     cp -n "$ASSETS_SRC/Wallpaper.jpg" "$HOME/Pictures/Wallpapers/Wallpaper.jpg"
     info "Wallpaper de ejemplo copiado a ~/Pictures/Wallpapers/"
