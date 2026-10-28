@@ -124,7 +124,7 @@ hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock --config " .. hyprDir .. "/
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd('flock -n "$XDG_RUNTIME_DIR/wallpaper-menu.lock" foot -T "wallpaper-switcher" -W 60x20 ' .. hyprDir .. "/wallpaper-menu.sh"))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(hyprDir .. "/clipboard-menu.sh"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(
-    'makoctl mode -t dnd && notify-send "Notifications" "$(makoctl mode | grep -q dnd && echo Disabled || echo Enabled)"'))
+    'makoctl mode -t dnd && pkill -RTMIN+9 waybar && notify-send "Notifications" "$(makoctl mode | grep -q dnd && echo Disabled || echo Enabled)"'))
 
 -- ---- Atajos: ventanas ----
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())

@@ -7,6 +7,7 @@
 #custom-battery,
 #custom-volume,
 #custom-network,
+#custom-dnd,
 #custom-mic,
 #custom-power {
     font-size: 17px;
@@ -29,10 +30,19 @@ window#waybar {
 #custom-volume,
 #custom-network,
 #custom-battery,
+#custom-dnd,
 #custom-mic,
 #custom-power {
     padding: 0 10px;
     color: #cdd6f4;
+}
+
+#custom-dnd {
+    color: #f38ba8;
+}
+
+#custom-dnd.enabled {
+    padding: 0;
 }
 
 #custom-mic.active {
@@ -59,6 +69,17 @@ window#waybar {
 
 #custom-battery.charging {
     color: #a6e3a1;
+    animation-name: blink;
+    animation-duration: 1.2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to {
+        opacity: 0.25;
+    }
 }
 
 #custom-battery.discharging {

@@ -11,7 +11,7 @@
 
     "modules-left": ["custom/workspaces"],
     "modules-center": ["custom/clock"],
-    "modules-right": ["tray", "custom/mic", "custom/volume", "custom/network", "custom/battery", "custom/power"],
+    "modules-right": ["tray", "custom/dnd", "custom/mic", "custom/volume", "custom/network", "custom/battery", "custom/power"],
 
     "custom/workspaces": {
         "exec": "~/.config/hypr/workspaces-status.py",
@@ -30,6 +30,13 @@
     "tray": {
         "icon-size": 20,
         "spacing": 8
+    },
+
+    "custom/dnd": {
+        "exec": "~/.config/hypr/dnd-status.sh",
+        "return-type": "json",
+        "signal": 9,
+        "tooltip": true
     },
 
     "custom/mic": {
@@ -58,9 +65,8 @@
     },
 
     "custom/battery": {
-        "exec": "~/.config/hypr/battery-status.sh",
+        "exec": "~/.config/hypr/battery-watch.sh",
         "return-type": "json",
-        "interval": 15,
         "on-click": "~/.config/hypr/bar-menu.sh battery ~/.config/hypr/power-profile-menu.sh"
     },
 
