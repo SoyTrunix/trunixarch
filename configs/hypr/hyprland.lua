@@ -121,7 +121,7 @@ hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd('foot -T "btop" btop'))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileMgr))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock --config " .. hyprDir .. "/hyprlock.conf"))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd('foot -T "wallpaper-switcher" -W 60x20 ' .. hyprDir .. "/wallpaper-menu.sh"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd('flock -n "$XDG_RUNTIME_DIR/wallpaper-menu.lock" foot -T "wallpaper-switcher" -W 60x20 ' .. hyprDir .. "/wallpaper-menu.sh"))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(hyprDir .. "/clipboard-menu.sh"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(
     'makoctl mode -t dnd && notify-send "Notifications" "$(makoctl mode | grep -q dnd && echo Disabled || echo Enabled)"'))

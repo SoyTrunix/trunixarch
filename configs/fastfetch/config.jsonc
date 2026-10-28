@@ -1,0 +1,54 @@
+{
+  "logo": null, 
+  "modules": [
+    {
+      "color": {
+        "at": "#666666",
+        "host": "#ff8a8a",
+        "user": "#ff8a8a"
+      },
+      "type": "title"
+    },
+    "break",
+    {
+      "format": "{pretty-name}",
+      "key": "OS",
+      "keyColor": "#71b7ff",
+      "type": "os"
+    },
+    {
+      "key": "Kernel",
+      "keyColor": "#d2a8ff",
+      "type": "kernel"
+    },
+    {
+      "format": "{pretty-name}",
+      "key": "WM",
+      "keyColor": "#ff8a8a",
+      "type": "wm"
+    },
+    {
+      "format": "{pretty-name}",
+      "key": "Shell",
+      "keyColor": "#8ddb8c",
+      "type": "shell"
+    },
+    {
+      "key": "Uptime",
+      "keyColor": "#d2b45f",
+      "type": "uptime"
+    },
+    {
+      "format": "{used} / {total}",
+      "key": "Ram",
+      "keyColor": "#71b7ff",
+      "type": "memory"
+    },
+    {
+      "format": "{pretty-name}",
+      "key": "Color",
+      "symbol": "circle",
+      "type": "colors"
+    }
+  ]
+}

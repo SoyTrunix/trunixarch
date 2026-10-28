@@ -111,6 +111,7 @@ PACKAGES=(
     brightnessctl
     networkmanager
     btop
+    fastfetch
     procps-ng
     libnotify
     xorg-xrdb
@@ -199,6 +200,10 @@ systemctl --user daemon-reload 2>/dev/null || true
 cp -f "$CONFIG_SRC/gtk/gtk-4.0/settings.ini" "$HOME/.config/gtk-4.0/settings.ini"
 cp -f "$CONFIG_SRC/xsettingsd/xsettingsd.conf" "$HOME/.config/xsettingsd/xsettingsd.conf"
 cp -f "$CONFIG_SRC/x11/Xresources" "$HOME/.Xresources"
+
+# fastfetch (info del sistema)
+mkdir -p "$HOME/.config/fastfetch"
+cp -f "$CONFIG_SRC/fastfetch/config.jsonc" "$HOME/.config/fastfetch/config.jsonc"
 
 # starship (prompt)
 cp -f "$CONFIG_SRC/starship/starship.toml" "$HOME/.config/starship.toml"
