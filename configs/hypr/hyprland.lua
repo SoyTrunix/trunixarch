@@ -23,6 +23,7 @@ local locked_repeating = { locked = true, repeating = true }
 -- ---- Monitores ----
 -- Regla genérica para cualquier monitor: máxima tasa de refresco ("highrr") y
 -- ubicación automática (uno al lado del otro). No depende de nombres ni resoluciones.
+hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@100", position = "auto", scale = 1 })
 hl.monitor({ output = "", mode = "highrr", position = "auto", scale = 1 })
 
 -- ---- Variables de entorno ----
@@ -56,6 +57,7 @@ hl.config({
         kb_layout    = "latam",
         follow_mouse = 1,
         sensitivity  = 0,
+        accel_profile = "flat",
         touchpad     = { natural_scroll = true },
     },
 })
