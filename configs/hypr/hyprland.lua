@@ -111,9 +111,6 @@ hl.animation({ leaf = "fade",       enabled = true, speed = 5, bezier = "default
 hl.animation({ leaf = "workspaces", enabled = true, speed = 4, bezier = "default", style = "slide" })
 
 -- ---- Reglas de ventana ----
--- Ventanas siempre flotantes (estilo KDE)
-hl.window_rule({ match = { class = ".*" }, float = true })
-
 -- Selector de wallpapers: flotante, centrado, tamaño fijo
 hl.window_rule({ match = { title = "wallpaper-switcher" }, float = true, center = true, size = "700 500" })
 

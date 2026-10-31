@@ -160,6 +160,7 @@ mkdir -p "$HOME/.config/hypr" "$HOME/.config/waybar" "$HOME/.config/fuzzel" "$HO
 cp -f "$CONFIG_SRC/hypr/hyprland.lua" "$HOME/.config/hypr/hyprland.lua"
 cp -f "$CONFIG_SRC/hypr/"*.sh "$CONFIG_SRC/hypr/"*.py "$HOME/.config/hypr/"
 chmod +x "$HOME/.config/hypr/"*.sh "$HOME/.config/hypr/"*.py
+cp -f "$CONFIG_SRC/hypr/mako.ini" "$HOME/.config/hypr/mako.ini"
 
 # hyprpaper.conf: reemplazar el placeholder __HOME__ por la home real del usuario
 for f in hyprpaper.conf hyprlock.conf hypridle.conf; do
@@ -196,6 +197,8 @@ sed "s|__HOME__|$HOME|g" "$CONFIG_SRC/qt/qt5ct.conf" > "$HOME/.config/qt5ct/qt5c
 mkdir -p "$HOME/.config/xdg-desktop-portal" "$HOME/.config/systemd/user/xdg-desktop-portal-lxqt.service.d"
 cp -f "$CONFIG_SRC/xdg-desktop-portal/hyprland-portals.conf" "$HOME/.config/xdg-desktop-portal/hyprland-portals.conf"
 cp -f "$CONFIG_SRC/systemd/xdg-desktop-portal-lxqt.service.d/qt-theme.conf" "$HOME/.config/systemd/user/xdg-desktop-portal-lxqt.service.d/qt-theme.conf"
+mkdir -p "$HOME/.config/systemd/user/mako.service.d"
+sed "s|__HOME__|$HOME|g" "$CONFIG_SRC/systemd/mako.service.d/override.conf" > "$HOME/.config/systemd/user/mako.service.d/override.conf"
 systemctl --user daemon-reload 2>/dev/null || true
 cp -f "$CONFIG_SRC/gtk/gtk-4.0/settings.ini" "$HOME/.config/gtk-4.0/settings.ini"
 cp -f "$CONFIG_SRC/xsettingsd/xsettingsd.conf" "$HOME/.config/xsettingsd/xsettingsd.conf"

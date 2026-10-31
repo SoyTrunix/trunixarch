@@ -10,7 +10,7 @@ status=$(cat "$BAT/status" 2>/dev/null)
 
 if [[ "$status" == "Discharging" ]] && (( capacity <= 10 )); then
     if [[ ! -f $FLAG ]]; then
-        notify-send -u critical -i battery-caution "Batería baja" "Quedan ${capacity}%. Conectá el cargador."
+        notify-send -u critical -i battery-caution "Low battery" "${capacity}% remaining. Plug in the charger."
         touch "$FLAG"
     fi
 elif [[ "$status" != "Discharging" ]] || (( capacity > 15 )); then
