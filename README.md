@@ -1,19 +1,8 @@
-# TrunixArch
+# TrunixArch Config
 
-**Un escritorio Arch pulido, rápido y listo en minutos.**
+**Un escritorio Arch Minimalista**
 
-Hyprland + Waybar + fuzzel, con una estética coherente de punta a punta: barra, menús, terminal y popups comparten paleta, tipografía y animaciones.
-
-## ✨ Qué tiene
-
-- **Barra elegante** — workspaces, reloj, volumen, micrófono, red, batería y power, todo a un clic.
-- **Menús que se sienten nativos** — power, perfiles de energía, red y portapapeles, siempre al alcance del icono.
-- **Calendario y volumen en un clic** — popups anclados a la barra, con cierre inteligente.
-- **Control total del sistema** — brillo, volumen y multimedia con feedback instantáneo.
-- **Wallpapers con preview en vivo** — elegí el fondo mientras lo ves cambiar, y el lockscreen lo sigue.
-- **Terminal lista para usar** — foot + fish + starship, con la misma paleta del escritorio.
-
-## 🚀 Instalación en un comando
+## Instalación en un comando
 
 ```bash
 git clone https://github.com/SoyTrunix/trunixarch.git
@@ -21,7 +10,7 @@ cd TrunixArch
 chmod +x install.sh && ./install.sh
 ```
 
-El script instala los paquetes, copia toda la configuración y te deja listo para iniciar sesión. Solo usa `sudo` para `pacman` y los servicios, y siempre pide confirmación antes de tocar nada.
+El script instala los paquetes, copia toda la configuración de este repositorio.
 
 Después de instalar, elegí la sesión **Hyprland** en el login. Si tus pantallas no se llaman `eDP-1` o `HDMI-A-1`, no hace falta tocar nada: la config detecta y ubica cada monitor sola.
 
