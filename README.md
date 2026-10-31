@@ -14,6 +14,10 @@ El script instala los paquetes, copia toda la configuración de este repositorio
 
 Después de instalar, elegí la sesión **Hyprland** en el login. Si tus pantallas no se llaman `eDP-1` o `HDMI-A-1`, no hace falta tocar nada: la config detecta y ubica cada monitor sola.
 
+## 🖥️ Pantalla de login
+
+El instalador deja configurado **Trunix Hyprlock**, un tema de SDDM con el mismo estilo visual que el lockscreen de Hyprland (paleta Catppuccin Mocha, tu wallpaper de fondo con blur) e incluye selector de sesión, usuario y contraseña.
+
 ## ⌨️ Atajos
 
 | Atajo | Acción |

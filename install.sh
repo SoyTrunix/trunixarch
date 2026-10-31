@@ -74,6 +74,12 @@ PACKAGES=(
     # Display manager (pantalla de login gráfica)
     sddm
 
+    # Qt5: /usr/bin/sddm-greeter (el binario que SDDM realmente ejecuta,
+    # tanto en X11 como en Wayland) está enlazado contra Qt5, no Qt6.
+    qt5-declarative
+    qt5-quickcontrols2
+    qt5-graphicaleffects
+
     # Audio (necesario para wpctl/pavucontrol/playerctl)
     pipewire
     pipewire-pulse
@@ -200,6 +206,21 @@ cp -f "$CONFIG_SRC/systemd/xdg-desktop-portal-lxqt.service.d/qt-theme.conf" "$HO
 mkdir -p "$HOME/.config/systemd/user/mako.service.d"
 sed "s|__HOME__|$HOME|g" "$CONFIG_SRC/systemd/mako.service.d/override.conf" > "$HOME/.config/systemd/user/mako.service.d/override.conf"
 systemctl --user daemon-reload 2>/dev/null || true
+
+# Tema de SDDM (pantalla de login) estilo Trunix Hyprlock
+info "Instalando tema de SDDM (Trunix Hyprlock)..."
+sudo mkdir -p /usr/share/sddm/themes/trunix-hyprlock
+TMP_SDDM_THEME="$(mktemp -d)"
+cp -r "$CONFIG_SRC/sddm/trunix-hyprlock/"* "$TMP_SDDM_THEME/"
+sed -i "s|__WALLPAPER__|$HOME/Pictures/Wallpapers/Wallpaper.png|g" "$TMP_SDDM_THEME/Main.qml" "$TMP_SDDM_THEME/theme.conf"
+sudo cp -r "$TMP_SDDM_THEME/"* /usr/share/sddm/themes/trunix-hyprlock/
+rm -rf "$TMP_SDDM_THEME"
+sudo mkdir -p /etc/sddm.conf.d
+sudo cp -f "$CONFIG_SRC/systemd/sddm.conf.d/10-theme.conf" /etc/sddm.conf.d/10-theme.conf
+# DisplayServer queda en x11 (default de SDDM): el modo wayland+cage causaba
+# un segfault de Hyprland en libaquamarine al hacer logout (traspaso de VT
+# entre compositores Wayland), dejando al usuario en una TTY en vez del greeter.
+
 cp -f "$CONFIG_SRC/gtk/gtk-4.0/settings.ini" "$HOME/.config/gtk-4.0/settings.ini"
 cp -f "$CONFIG_SRC/xsettingsd/xsettingsd.conf" "$HOME/.config/xsettingsd/xsettingsd.conf"
 cp -f "$CONFIG_SRC/x11/Xresources" "$HOME/.Xresources"
@@ -229,8 +250,8 @@ info "Configuración copiada."
 for d in Desktop Downloads Documents Pictures Videos Music Projects Pictures/Wallpapers; do
     mkdir -p "$HOME/$d"
 done
-if [[ -f "$ASSETS_SRC/Wallpaper.jpg" ]]; then
-    cp -n "$ASSETS_SRC/Wallpaper.jpg" "$HOME/Pictures/Wallpapers/Wallpaper.jpg"
+if [[ -f "$ASSETS_SRC/Wallpaper.png" ]]; then
+    cp -n "$ASSETS_SRC/Wallpaper.png" "$HOME/Pictures/Wallpapers/Wallpaper.png"
     info "Wallpaper de ejemplo copiado a ~/Pictures/Wallpapers/"
 else
     warn "No se encontró el wallpaper de ejemplo en $ASSETS_SRC — vas a necesitar poner una imagen vos mismo y ajustar ~/.config/hypr/hyprpaper.conf"

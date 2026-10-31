@@ -31,7 +31,6 @@ if [[ -n "$selected" ]]; then
     # También actualizar el fondo del lockscreen (hyprlock) para que coincida.
     sed -i "s|^    path = .*|    path = ${selected}|" "$HOME/.config/hypr/hyprlock.conf"
     sed -i "s|^    path = .*|    path = ${selected}|" "$HOME/.config/hypr/hyprpaper.conf"
-    notify-send "Wallpaper" "Changed to $(basename "$selected")"
 elif [[ -n "$current_line" ]]; then
     apply_wallpaper "$current_line"
 fi

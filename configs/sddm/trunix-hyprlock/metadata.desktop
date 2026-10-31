@@ -1,0 +1,14 @@
+[SddmGreeterTheme]
+Name=Trunix Hyprlock
+Description=Tema de SDDM que imita el lockscreen de Hyprland (hyprlock) con paleta Catppuccin Mocha
+Author=Emanuel Chirimelli
+Copyright=(c) 2026, Emanuel Chirimelli
+License=MIT
+Type=sddm-theme
+Version=1.0
+Website=https://github.com/trunixarch
+Screenshot=
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Font=JetBrainsMono Nerd Font
