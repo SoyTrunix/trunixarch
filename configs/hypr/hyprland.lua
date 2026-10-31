@@ -138,11 +138,10 @@ for _, dir in ipairs({ "left", "right", "up", "down" }) do
     hl.bind(mainMod .. " + " .. dir, hl.dsp.focus({ direction = dir }))
 end
 
--- Workspaces 1-10 (y mover ventana al workspace)
-for i = 1, 10 do
-    local key = (i == 10) and "0" or tostring(i)
-    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = tostring(i) }))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = tostring(i) }))
+-- Workspaces 1-9 (SUPER + n: cambiar; SUPER + SHIFT + n: mover ventana)
+for i = 1, 9 do
+    hl.bind(mainMod .. " + " .. i, hl.dsp.focus({ workspace = tostring(i) }))
+    hl.bind(mainMod .. " + SHIFT + " .. i, hl.dsp.window.move({ workspace = tostring(i) }))
 end
 
 -- Mouse: mover y redimensionar ventanas flotantes

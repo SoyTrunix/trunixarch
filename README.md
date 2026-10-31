@@ -38,6 +38,7 @@ Después de instalar, elegí la sesión **Hyprland** en el login. Si tus pantall
 | `SUPER + C` | Historial de portapapeles |
 | `SUPER + N` | Activar / desactivar notificaciones |
 | `SUPER + L` | Bloquear pantalla |
-| `SUPER + 1…0` | Cambiar de workspace |
+| `SUPER + 1…9` | Cambiar de workspace |
+| `SUPER + SHIFT + 1…9` | Mover ventana a otro workspace |
 | `CTRL + SUPER + X` | Mutear / desmutear micrófono |
 | `CTRL + SHIFT + ESC` | Abrir btop |

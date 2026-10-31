@@ -4,6 +4,7 @@
 import json, os, socket, subprocess
 
 MAX = 5
+WS_LIMIT = 9  # máximo de workspaces
 
 def hypr_json(cmd):
     return json.loads(subprocess.check_output(["hyprctl", cmd, "-j"]))
@@ -14,9 +15,11 @@ def render():
         occ = {w["id"] for w in hypr_json("workspaces")}
     except Exception:
         return
-    start = max(1, act - 2)
+    start = max(1, min(act - 2, WS_LIMIT - MAX + 1))
     cells = []
     for i in range(start, start + MAX):
+        if i > WS_LIMIT:
+            break
         if i == act:
             cells.append(f"<span background='#89b4fa' foreground='#1e1e2e' weight='bold'> {i} </span>")
         elif i in occ:
